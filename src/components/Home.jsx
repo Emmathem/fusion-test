@@ -1,10 +1,10 @@
-import { Button, Input, Select } from 'antd'
-import React from 'react'
-import { Form, Row, Col } from 'antd'
+import { Button, Input, Select } from 'antd';
+import React from 'react';
+import { Form, Row, Col } from 'antd';
 import { generateReference } from '../utils/helpers';
 import { PROD_PAYMENT_LINK } from '../utils/constants';
 
-const { Option } = Select
+const { Option } = Select;
 
 const Home = () => {
     const [form] = Form.useForm();
@@ -12,32 +12,32 @@ const Home = () => {
     const onFinish = (values, tab) => {
         console.log(values);
         let finalUri = '';
-debugger;
-        const paymentLink = `${PROD_PAYMENT_LINK}/redirect`
+        debugger;
+        const paymentLink = `${PROD_PAYMENT_LINK}/redirect`;
         const directPayload = {
-            redirectUrl: "http://localhost:5100/transaction-confirmation",
+            redirectUrl: 'http://localhost:5100/transaction-confirmation',
             key: process.env.REACT_APP_PROD_PUBLIC_TEST_KEY,
             showPersonalInformation: false,
-            customerEmail: "test@yahoo.com",
-            customerName: "Vee Tolar",
+            customerEmail: 'test@yahoo.com',
+            customerName: 'Vee Tolar',
             reference: generateReference(12),
             shouldWindowClose: false,
             amount: values?.amount,
             currencyCode: values?.currencyCode,
-        }
+        };
         console.log(directPayload, 'directPayload');
         const convertToString = JSON.stringify(directPayload);
-        console.log(convertToString)
+        console.log(convertToString);
         const convertToBase64 = btoa(convertToString);
         finalUri = paymentLink + '/' + convertToBase64;
-        console.log(finalUri)
+        console.log(finalUri);
 
         // if (tab === 'new_tab') {
         //     window.open(finalUri, '_blank');
         // } else {
         //     window.location.href = finalUri;
         // }
-        return finalUri
+        return finalUri;
     };
 
     const onFinishedFailed = (errorInfo) => {
@@ -47,12 +47,12 @@ debugger;
     const handleFormSubmit = (tab) => {
         form.validateFields()
             .then((values) => {
-                onFinish(values, tab)
+                onFinish(values, tab);
             })
             .catch((errorInfo) => {
-                onFinishedFailed(errorInfo)
-            })
-    }
+                onFinishedFailed(errorInfo);
+            });
+    };
     return (
         <div>
             <div>
@@ -91,14 +91,16 @@ debugger;
                                 <Button type="primary" onClick={() => handleFormSubmit('new_tab')}>Generate Payment</Button>
                             </Col>*/}
                             <Col>
-                                <Button type="primary" onClick={handleFormSubmit}>Generate Payment</Button>
+                                <Button type="primary" onClick={handleFormSubmit}>
+                                    Generate Payment
+                                </Button>
                             </Col>
                         </Row>
                     </Form>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

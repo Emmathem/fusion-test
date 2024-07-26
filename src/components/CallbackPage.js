@@ -8,28 +8,28 @@ const CallbackPage = () => {
     const [loading, setLoading] = useState(false);
     const [searchParams] = useSearchParams();
 
-    const paymentReference = searchParams.get('reference')
+    const paymentReference = searchParams.get('reference');
     console.log(paymentReference, 'get');
 
     const fetchTransactionReference = async () => {
         try {
-            setLoading(true)
+            setLoading(true);
             const response = await axiosInstance().get(`/api/payments/transactions/${paymentReference}`);
             console.log(response, 'ress');
-            const { value } = response
+            const { value } = response;
             if (response) {
-                setLoading(false)
+                setLoading(false);
                 setTransResponse(value);
             }
         } catch (e) {
-            setLoading(false)
+            setLoading(false);
             console.log(e);
         }
     };
 
     useEffect(() => {
         fetchTransactionReference();
-    }, [paymentReference])
+    }, [paymentReference]);
     return (
         <div>
             <div>
@@ -40,12 +40,14 @@ const CallbackPage = () => {
                     </>
                 ) : (
                     <>
-                        <span>Reference: <strong>{transResponse?.paymentStatus}</strong></span>
+                        <span>
+                            Reference: <strong>{transResponse?.paymentStatus}</strong>
+                        </span>
                     </>
                 )}
             </div>
         </div>
-    )
+    );
 };
 
 export default CallbackPage;

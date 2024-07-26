@@ -8,4 +8,4 @@ export const generateReference = (length) => {
         counter += 1;
     }
     return result?.toUpperCase();
-}
+};

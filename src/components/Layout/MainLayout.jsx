@@ -1,14 +1,21 @@
-import React, { useState } from 'react'
-import { Button, Layout, theme, Menu } from 'antd'
-import { MenuFoldOutlined, MenuUnfoldOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons'
+import React, { useState } from 'react';
+import { Button, Layout, theme, Menu } from 'antd';
+import {
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    UploadOutlined,
+    UserOutlined,
+    VideoCameraOutlined,
+} from '@ant-design/icons';
 
-const { Sider, Header, Content } = Layout
-
+const { Sider, Header, Content } = Layout;
 
 const MainLayout = ({ children }) => {
     const [collapsed, setCollapsed] = useState(false);
 
-    const { token: { colorBgContainer, borderRadiusLB } } = theme.useToken();
+    const {
+        token: { colorBgContainer, borderRadiusLB },
+    } = theme.useToken();
     return (
         <Layout>
             <Sider
@@ -27,31 +34,31 @@ const MainLayout = ({ children }) => {
                         {
                             key: '1',
                             icon: <UserOutlined />,
-                            label: 'Profile'
+                            label: 'Profile',
                         },
                         {
                             key: '2',
                             icon: <VideoCameraOutlined />,
-                            label: 'Orders'
+                            label: 'Orders',
                         },
                         {
                             key: '3',
                             icon: <UploadOutlined />,
-                            label: 'Uploads'
-                        }
+                            label: 'Uploads',
+                        },
                     ]}
                 />
             </Sider>
             <Layout>
                 <Header style={{ padding: 0, background: colorBgContainer }}>
                     <Button
-                        type='text' 
+                        type="text"
                         onClick={() => setCollapsed(!collapsed)}
                         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                         style={{
                             fontSize: '14px',
                             width: 64,
-                            height: 64
+                            height: 64,
                         }}
                     />
                 </Header>
@@ -61,14 +68,14 @@ const MainLayout = ({ children }) => {
                         padding: 24,
                         minHeight: 280,
                         background: colorBgContainer,
-                        borderRadius: borderRadiusLB
+                        borderRadius: borderRadiusLB,
                     }}
                 >
                     <div>{children}</div>
                 </Content>
             </Layout>
         </Layout>
-    )
-}
+    );
+};
 
-export default MainLayout
+export default MainLayout;
