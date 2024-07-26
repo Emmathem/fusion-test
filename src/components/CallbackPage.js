@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import { Spin } from 'antd';
@@ -11,7 +11,7 @@ const CallbackPage = () => {
     const paymentReference = searchParams.get('reference');
     console.log(paymentReference, 'get');
 
-    const fetchTransactionReference = async () => {
+    const fetchTransactionReference = useCallback(async () => {
         try {
             setLoading(true);
             const response = await axiosInstance().get(`/api/payments/transactions/${paymentReference}`);
@@ -25,11 +25,14 @@ const CallbackPage = () => {
             setLoading(false);
             console.log(e);
         }
-    };
+    }, [paymentReference]);
 
     useEffect(() => {
-        fetchTransactionReference();
-    }, [paymentReference]);
+        if (paymentReference) {
+            fetchTransactionReference();
+        }
+    }, [paymentReference, fetchTransactionReference]);
+
     return (
         <div>
             <div>

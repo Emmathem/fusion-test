@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-export default () => {
-    const public_key = 'pk_test_0f1b6fhd64c92g264ca8aefac6c4e5gh04523g3';
+const createAxiosInstance = () => {
     const secret_key = 'sk_test_6d8d768fceab18d5493g6ee748e7182adg57764';
 
     const baseURL = 'https://laas.leatherback.co';
@@ -39,3 +38,5 @@ export default () => {
 
     return axiosInstance;
 };
+
+export default createAxiosInstance;

@@ -1,5 +1,5 @@
 import { Button, Input, Select } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col } from 'antd';
 import { generateReference } from '../utils/helpers';
 import { PROD_PAYMENT_LINK } from '../utils/constants';
@@ -7,12 +7,14 @@ import { PROD_PAYMENT_LINK } from '../utils/constants';
 const { Option } = Select;
 
 const Home = () => {
+    const [loading, setLoading] = useState(false);
     const [form] = Form.useForm();
 
     const onFinish = (values, tab) => {
         console.log(values);
+        setLoading(true);
         let finalUri = '';
-        debugger;
+
         const paymentLink = `${PROD_PAYMENT_LINK}/redirect`;
         const directPayload = {
             redirectUrl: 'http://localhost:5100/transaction-confirmation',
@@ -32,12 +34,15 @@ const Home = () => {
         finalUri = paymentLink + '/' + convertToBase64;
         console.log(finalUri);
 
-        // if (tab === 'new_tab') {
-        //     window.open(finalUri, '_blank');
-        // } else {
-        //     window.location.href = finalUri;
-        // }
-        return finalUri;
+        setTimeout(() => {
+            if (tab === 'new_tab') {
+                window.open(finalUri, '_blank');
+            } else {
+                window.location.href = finalUri;
+            }
+            setLoading(false);
+            return finalUri;
+        }, 500);
     };
 
     const onFinishedFailed = (errorInfo) => {
@@ -67,17 +72,17 @@ const Home = () => {
                     >
                         <Row gutter={[16]}>
                             <Col span={24}>
+                                <p>Enter Amount</p>
                                 <Form.Item name="amount" rules={[{ required: true, message: 'Enter Amount' }]}>
-                                    <p className="mb-2">Enter Amount</p>
-                                    <Input required name="amount" type="text" />
+                                    <Input required name="amount" type="text" placeholder="Enter Amount" />
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Row>
                             <Col span={24}>
+                                <p>Select Currency</p>
                                 <Form.Item name="currencyCode" rules={[{ required: true, message: 'Select Currency' }]}>
-                                    <p className="mb-2">Select Currency</p>
-                                    <Select id="currencyCode" name="currencyCode" required>
+                                    <Select id="currencyCode" name="currencyCode" placeholder="Currency">
                                         <Option value="CAD">CAD</Option>
                                         <Option value="NGN">NGN</Option>
                                         <Option value="GBP">GBP</Option>
@@ -87,11 +92,13 @@ const Home = () => {
                         </Row>
 
                         <Row gutter={16}>
-                            {/*<Col>
-                                <Button type="primary" onClick={() => handleFormSubmit('new_tab')}>Generate Payment</Button>
-                            </Col>*/}
                             <Col>
-                                <Button type="primary" onClick={handleFormSubmit}>
+                                <Button type="default" loading={loading} onClick={() => handleFormSubmit('new_tab')}>
+                                    Generate Payment New Tab
+                                </Button>
+                            </Col>
+                            <Col className="mt-4">
+                                <Button type="primary" loading={loading} onClick={handleFormSubmit}>
                                     Generate Payment
                                 </Button>
                             </Col>
