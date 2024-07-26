@@ -9,13 +9,12 @@ const CallbackPage = () => {
     const [searchParams] = useSearchParams();
 
     const paymentReference = searchParams.get('reference');
-    console.log(paymentReference, 'get');
 
     const fetchTransactionReference = useCallback(async () => {
         try {
             setLoading(true);
             const response = await axiosInstance().get(`/api/payment/transactions/${paymentReference}`);
-            console.log(response, 'ress');
+            // console.log(response, 'ress');
             const { value } = response;
             if (response) {
                 setLoading(false);
@@ -40,7 +39,7 @@ const CallbackPage = () => {
                 <Divider />
                 {loading ? (
                     <>
-                        <Spin tip="Fetching Status" />
+                        <Spin />
                     </>
                 ) : (
                     <>

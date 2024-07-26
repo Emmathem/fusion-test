@@ -2,5 +2,12 @@
     height: 40px;
     margin: 10px;
     border-radius: 4px;
-    background: #71716d;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span {
+        font-size: 1.1rem;
+        font-weight: bolder;
+    }
 }

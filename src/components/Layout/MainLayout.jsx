@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { Button, Layout, theme, Menu } from 'antd';
 import {
     MenuFoldOutlined,
-    MenuUnfoldOutlined,
+    MenuUnfoldOutlined, MoneyCollectOutlined, MoneyCollectTwoTone,
     UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
 } from '@ant-design/icons';
 
 const { Sider, Header, Content } = Layout;
@@ -25,7 +23,9 @@ const MainLayout = ({ children }) => {
                 // collapsedWidth={0}
                 style={{ overflow: 'auto', zIndex: 9, height: '100vh', left: 0 }}
             >
-                <div className="demo-logo-vertical" />
+                <div className="demo-logo-vertical">
+                    <span>FUSION SANDBOX</span>
+                </div>
                 <Menu
                     theme="dark"
                     mode="inline"
@@ -33,18 +33,18 @@ const MainLayout = ({ children }) => {
                     items={[
                         {
                             key: '1',
-                            icon: <UserOutlined />,
-                            label: 'Profile',
+                            icon: <MoneyCollectTwoTone />,
+                            label: 'Collection',
                         },
                         {
                             key: '2',
-                            icon: <VideoCameraOutlined />,
-                            label: 'Orders',
+                            icon: <MoneyCollectOutlined />,
+                            label: 'SendR',
                         },
                         {
                             key: '3',
                             icon: <UploadOutlined />,
-                            label: 'Uploads',
+                            label: 'Payout',
                         },
                     ]}
                 />
