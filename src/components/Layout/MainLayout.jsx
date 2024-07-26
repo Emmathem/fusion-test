@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Button, Layout, theme, Menu } from 'antd';
 import {
     MenuFoldOutlined,
-    MenuUnfoldOutlined, MoneyCollectOutlined, MoneyCollectTwoTone,
+    MenuUnfoldOutlined,
+    MoneyCollectOutlined,
+    MoneyCollectTwoTone,
     UploadOutlined,
 } from '@ant-design/icons';
 
