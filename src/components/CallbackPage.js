@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
-import { Spin } from 'antd';
+import { Divider, Spin } from 'antd';
 
 const CallbackPage = () => {
     const [transResponse, setTransResponse] = useState(null);
@@ -14,7 +14,7 @@ const CallbackPage = () => {
     const fetchTransactionReference = useCallback(async () => {
         try {
             setLoading(true);
-            const response = await axiosInstance().get(`/api/payments/transactions/${paymentReference}`);
+            const response = await axiosInstance().get(`/api/payment/transactions/${paymentReference}`);
             console.log(response, 'ress');
             const { value } = response;
             if (response) {
@@ -37,15 +37,25 @@ const CallbackPage = () => {
         <div>
             <div>
                 <Link to={'/'}>Go Home</Link>
+                <Divider />
                 {loading ? (
                     <>
                         <Spin tip="Fetching Status" />
                     </>
                 ) : (
                     <>
-                        <span>
-                            Reference: <strong>{transResponse?.paymentStatus}</strong>
-                        </span>
+                        <div>
+                            Status: <strong>{transResponse?.paymentStatus}</strong>
+                        </div>
+                        <div>
+                            Reference: <strong>{transResponse?.paymentReference}</strong>
+                        </div>
+                        <div>
+                            Amount:{' '}
+                            <strong>
+                                {transResponse?.amount.currencyCode} {transResponse?.amount.amount}
+                            </strong>
+                        </div>
                     </>
                 )}
             </div>
