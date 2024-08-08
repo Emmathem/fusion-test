@@ -20,7 +20,7 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "clean-line": "npx prettier --write ."
+        "lint": "npx prettier --write ."
     },
     "eslintConfig": {
         "extends": [
@@ -42,6 +42,7 @@
     },
     "devDependencies": {
         "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+        "plaid": "^26.0.0",
         "postcss": "^8.4.40",
         "postcss-loader": "^8.1.1",
         "prettier": "3.3.3",

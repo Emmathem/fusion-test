@@ -3132,7 +3132,7 @@ axe-core@^4.9.1:
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.9.1.tgz"
   integrity sha512-QbUdXJVTpvUTHU7871ppZkdOLBeGUKBQWHkHrvN2V9IQWGMt61zf3B45BtzjxEJzYuj0JBjBZP/hmYS/R9pmAw==
 
-axios@^1.7.2:
+axios@^1.6.2, axios@^1.7.2:
   version "1.7.2"
   resolved "https://registry.npmjs.org/axios/-/axios-1.7.2.tgz"
   integrity sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==
@@ -7518,6 +7518,13 @@ pkg-up@^3.1.0:
   integrity sha512-nDywThFk1i4BQK4twPQ6TA4RT8bDY96yeuCVBWL3ePARCiEKDRSrNGbFIgUJpLp+XeIR65v8ra7WuJOFUBtkMA==
   dependencies:
     find-up "^3.0.0"
+
+plaid@^26.0.0:
+  version "26.0.0"
+  resolved "https://registry.yarnpkg.com/plaid/-/plaid-26.0.0.tgz#fede254ffa37b96117dc857ab7d4d8d34b83943d"
+  integrity sha512-idAQTSmLm5C0WieSRBWrkF8ur2T5UGjRja+6/Owl9m9YjlD1PjOkD9A9s+l95sJiIhjWLs7HR9Ti3f06dvnrPg==
+  dependencies:
+    axios "^1.6.2"
 
 possible-typed-array-names@^1.0.0:
   version "1.0.0"

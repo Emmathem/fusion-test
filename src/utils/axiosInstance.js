@@ -1,12 +1,10 @@
 import axios from 'axios';
 
 const createAxiosInstance = () => {
-    const secret_key = 'sk_test_6d8d768fceab18d5493g6ee748e7182adg57764';
-
-    const baseURL = 'https://laas.leatherback.co';
+    const secret_key = process.env.REACT_APP_SECRET_KEY;
 
     const axiosInstance = axios.create({
-        baseURL,
+        baseURL: process.env.REACT_APP_BASE_URL,
         headers: {
             'Content-Type': 'application/json',
             'X-Api': secret_key,

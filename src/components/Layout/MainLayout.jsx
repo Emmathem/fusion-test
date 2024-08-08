@@ -7,6 +7,7 @@ import {
     MoneyCollectTwoTone,
     UploadOutlined,
 } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const { Sider, Header, Content } = Layout;
 
@@ -16,6 +17,10 @@ const MainLayout = ({ children }) => {
     const {
         token: { colorBgContainer, borderRadiusLB },
     } = theme.useToken();
+
+    const handleChange = (log) => {
+        console.log(log);
+    };
     return (
         <Layout>
             <Sider
@@ -27,6 +32,11 @@ const MainLayout = ({ children }) => {
             >
                 <div className="demo-logo-vertical">
                     <span>FUSION SANDBOX</span>
+                </div>
+                <div className="p-4">
+                    <span className="text-white">
+                        <Link to="/plaid-test">Plaid Test</Link>
+                    </span>
                 </div>
                 <Menu
                     theme="dark"
@@ -49,6 +59,7 @@ const MainLayout = ({ children }) => {
                             label: 'Payout',
                         },
                     ]}
+                    onChange={handleChange}
                 />
             </Sider>
             <Layout>

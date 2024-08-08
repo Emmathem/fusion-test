@@ -1,4 +1,4 @@
-import { Button, Input, Select } from 'antd';
+import { Button, Input, Select, Switch } from 'antd';
 import React, { useState } from 'react';
 import { Form, Row, Col } from 'antd';
 import { generateReference } from '../utils/helpers';
@@ -8,9 +8,13 @@ const { Option } = Select;
 
 const Home = () => {
     const [loading, setLoading] = useState(false);
+    const [tab, setTab] = useState(true);
     const [form] = Form.useForm();
 
-    const onFinish = (values, tab) => {
+    const toggleChange = (value) => {
+        setTab(value);
+    };
+    const onFinish = (values) => {
         console.log(values);
         setLoading(true);
         let finalUri = '';
@@ -18,11 +22,11 @@ const Home = () => {
         const paymentLink = `${PROD_PAYMENT_LINK}/redirect`;
         const directPayload = {
             redirectUrl: 'http://localhost:5100/transaction-confirmation',
-            key: process.env.REACT_APP_PROD_PUBLIC_TEST_KEY,
+            key: process.env.REACT_APP_PUBLIC_KEY,
             showPersonalInformation: false,
             customerEmail: 'test@yahoo.com',
             customerName: 'Vee Tolar',
-            reference: generateReference(12),
+            reference: generateReference(10),
             shouldWindowClose: false,
             amount: values?.amount,
             currencyCode: values?.currencyCode,
@@ -35,7 +39,7 @@ const Home = () => {
         console.log(finalUri);
 
         setTimeout(() => {
-            if (tab === 'new_tab') {
+            if (!tab) {
                 window.open(finalUri, '_blank');
             } else {
                 window.location.href = finalUri;
@@ -49,10 +53,10 @@ const Home = () => {
         console.log(errorInfo);
     };
 
-    const handleFormSubmit = (tab) => {
+    const handleFormSubmit = () => {
         form.validateFields()
             .then((values) => {
-                onFinish(values, tab);
+                onFinish(values);
             })
             .catch((errorInfo) => {
                 onFinishedFailed(errorInfo);
@@ -91,12 +95,23 @@ const Home = () => {
                             </Col>
                         </Row>
 
+                        <Row>
+                            <Col span={24}>
+                                <Switch
+                                    defaultChecked
+                                    unCheckedChildren="In New Tab"
+                                    checkedChildren="Within Tab"
+                                    onChange={toggleChange}
+                                />
+                            </Col>
+                        </Row>
+
                         <Row gutter={16}>
-                            <Col>
+                            {/* <Col>
                                 <Button type="default" loading={loading} onClick={() => handleFormSubmit('new_tab')}>
                                     Generate Payment New Tab
                                 </Button>
-                            </Col>
+                            </Col>*/}
                             <Col className="mt-4">
                                 <Button type="primary" loading={loading} onClick={handleFormSubmit}>
                                     Generate Payment
