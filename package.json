@@ -22,7 +22,7 @@
         "eject": "react-scripts eject",
         "lint": "npx prettier --write .",
         "url": "echo fusion-app.surge.sh > CNAME",
-        "surge": "surge ./build"
+        "surge": "surge --domain fusion-app.surge.sh"
     },
     "eslintConfig": {
         "extends": [
