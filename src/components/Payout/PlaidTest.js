@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Col, Form, Input, Row, Select } from 'antd';
+import { Button, Col, Divider, Form, Input, Row, Select } from 'antd';
 import axiosInstance from '../../utils/axiosInstance';
 import { generateReference } from '../../utils/helpers';
+import PopupPlaid from '../PopupPlaid';
 
 const { Option } = Select;
 
@@ -13,7 +14,7 @@ const PlaidTest = () => {
     const [form] = Form.useForm();
 
     const onFinish = async (values) => {
-        setLoading(true)
+        setLoading(true);
         const payload = {
             currencyCode: values.currencyCode,
             amount: values.amount,
@@ -39,11 +40,11 @@ const PlaidTest = () => {
             const response = await axiosInstance().post(`/api/payment/pay/initiate`, payload);
             console.log(response);
             const { value } = response;
-            const { paymentItem } = value
-            setPlaidResponse(paymentItem)
-            setLoading(false)
+            const { paymentItem } = value;
+            setPlaidResponse(paymentItem);
+            setLoading(false);
         } catch (e) {
-            setLoading(false)
+            setLoading(false);
             console.log(e);
         }
     };
@@ -62,11 +63,11 @@ const PlaidTest = () => {
             });
     };
 
-
     const openLink = () => {
         const linkHandler = window.Plaid.create({
             // Create a new link_token to initialize Link
             token: plaidResponse?.metaData?.token,
+            // is_mobile_app: true,
             onSuccess: (public_token, metadata) => {
                 console.log(public_token, 'publoc');
                 console.log(metadata, 'meta data success');
@@ -90,7 +91,7 @@ const PlaidTest = () => {
                 console.log(err, 'error exit');
                 if (metadata?.error_code === 'PAYMENT_REJECTED') {
                     // window.location.reload()
-                    form.resetFields()
+                    form.resetFields();
                     setPlaidResponse(null);
                     alert(metadata?.display_message);
                 }
@@ -113,7 +114,7 @@ const PlaidTest = () => {
                 console.log(metadata, 'metadata on event');
                 if (metadata?.error_code === 'PAYMENT_REJECTED') {
                     // window.location.reload()
-                    form.resetFields()
+                    form.resetFields();
                     setPlaidResponse(null);
                     alert(metadata?.display_message);
                 }
@@ -135,66 +136,74 @@ const PlaidTest = () => {
 
     return (
         <div>
-            <h3 className="font-bold text-2lg">Plaid</h3>
-            <div className="border w-1/4 p-4 mt-4">
-                <Form
-                    name="collection-form"
-                    form={form}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishedFailed}
-                    preserve={false}
-                >
-                    <Row gutter={[16]}>
-                        <Col span={24}>
-                            <p>Enter Amount</p>
-                            <Form.Item name="amount" rules={[{ required: true, message: 'Enter Amount' }]}>
-                                <Input required name="amount" type="text" placeholder="Enter Amount" />
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>
-                            <p>Select Currency</p>
-                            <Form.Item name="currencyCode" rules={[{ required: true, message: 'Select Currency' }]}>
-                                <Select id="currencyCode" name="currencyCode" placeholder="Currency">
-                                    <Option value="CAD">CAD</Option>
-                                    <Option value="NGN">NGN</Option>
-                                    <Option value="GBP">GBP</Option>
-                                </Select>
-                            </Form.Item>
-                        </Col>
-                    </Row>
+            <div>
+                <h3 className="font-bold text-2lg">Plaid</h3>
+                <div className="border lg:w-1/4 md:w-full sm:w-full p-4 mt-4">
+                    <Form
+                        name="collection-form"
+                        form={form}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishedFailed}
+                        preserve={false}
+                    >
+                        <Row gutter={[16]}>
+                            <Col span={24}>
+                                <p>Enter Amount</p>
+                                <Form.Item name="amount" rules={[{ required: true, message: 'Enter Amount' }]}>
+                                    <Input required name="amount" type="text" placeholder="Enter Amount" />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span={24}>
+                                <p>Select Currency</p>
+                                <Form.Item name="currencyCode" rules={[{ required: true, message: 'Select Currency' }]}>
+                                    <Select id="currencyCode" name="currencyCode" placeholder="Currency">
+                                        <Option value="CAD">CAD</Option>
+                                        <Option value="NGN">NGN</Option>
+                                        <Option value="GBP">GBP</Option>
+                                    </Select>
+                                </Form.Item>
+                            </Col>
+                        </Row>
 
-                    <Row>
-                        <Col span={24}>
-                            {text}
-                        </Col>
-                    </Row>
+                        <Row>
+                            <Col span={24}>{text}</Col>
+                        </Row>
 
-                    <Row gutter={16}>
-                        {/* <Col>
+                        <Row gutter={16}>
+                            {/* <Col>
                                 <Button type="default" loading={loading} onClick={() => handleFormSubmit('new_tab')}>
                                     Generate Payment New Tab
                                 </Button>
                             </Col>*/}
-                        <Col className="mt-4">
-                            <Button type="primary" loading={loading} onClick={handleFormSubmit}>
-                                Generate Payment
-                            </Button>
-                        </Col>
-                    </Row>
-                </Form>
-            </div>
-
-            {plaidResponse && (
-                <div className="mt-4">
-                    <span>{plaidResponse?.message}</span>
-                   <div className="flex mt-3">
-                       <span>{plaidResponse?.metaData?.AuthUrl}</span>
-                       <Button onClick={openLink}>Open Payment</Button>
-                   </div>
+                            <Col className="mt-4">
+                                <Button type="primary" loading={loading} onClick={handleFormSubmit}>
+                                    Generate Payment
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Form>
                 </div>
-            )}
+
+                {plaidResponse && (
+                    <div className="mt-4">
+                        <span>{plaidResponse?.message}</span>
+                        <div className="flex mt-3">
+                            <p>
+                                <code>{plaidResponse?.metaData?.AuthUrl}</code>
+                            </p>
+                        </div>
+                        <div className="flex mt-3">
+                            <Button onClick={openLink}>Open Payment</Button>
+                        </div>
+                    </div>
+                )}
+            </div>
+            <Divider />
+            <div>
+                <PopupPlaid />
+            </div>
         </div>
     );
 };

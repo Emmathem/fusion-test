@@ -27,7 +27,7 @@ const MainLayout = ({ children }) => {
                 trigger={null}
                 collapsible
                 collapsed={collapsed}
-                // collapsedWidth={0}
+                collapsedWidth={0}
                 style={{ overflow: 'auto', zIndex: 9, height: '100vh', left: 0 }}
             >
                 <div className="demo-logo-vertical">

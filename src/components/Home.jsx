@@ -30,11 +30,21 @@ const Home = () => {
             shouldWindowClose: false,
             amount: values?.amount,
             currencyCode: values?.currencyCode,
+
+            // redirectUrl: 'https://rozeremit.com/transfer/success?leatherback=true',
+            // key: 'pk_live_hcfa9b460fehf9h26f9829ac6b8e1b218e27ahf',
+            // showPersonalInformation: false,
+            // customerEmail: 'hamziiiiii6@gmail.com',
+            // customerName: 'Hamza Akram',
+            // reference: generateReference(10),
+            // shouldWindowClose: false,
+            // amount: 90,
+            // currencyCode: 'CAD',
         };
         console.log(directPayload, 'directPayload');
         const convertToString = JSON.stringify(directPayload);
         console.log(convertToString);
-        const convertToBase64 = btoa(convertToString);
+        const convertToBase64 = btoa(encodeURI(convertToString));
         finalUri = paymentLink + '/' + convertToBase64;
         console.log(finalUri);
 
