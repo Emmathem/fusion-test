@@ -62,8 +62,25 @@ const PlaidTest = () => {
                 onFinishedFailed(errorInfo);
             });
     };
-
+    const getClientUrl = (url) => {
+        const params = new URLSearchParams(url.split('?')[1]); // Extract query string from URL
+        console.log(params, 'params');
+        const redirectUrl = params.get('client_url');
+        const reference = params.get('lb_reference');
+        return { redirectUrl, reference };
+    };
+    const redirectHome = (params) => {
+        console.log(params, 'params');
+        // window.location.href = this.clientUrl
+        debugger;
+        const url = new URL(params.redirectUrl)
+        url.searchParams.set('reference', params.reference)
+        window.location.href = url.toString()
+    };
     const openLink = () => {
+        console.log(plaidResponse, 'plaidResponse');
+        const returnUrlResponse = getClientUrl(plaidResponse.metaData?.AuthUrl);
+        console.log(returnUrlResponse, 'ttttt');
         const linkHandler = window.Plaid.create({
             // Create a new link_token to initialize Link
             token: plaidResponse?.metaData?.token,
@@ -71,6 +88,7 @@ const PlaidTest = () => {
             onSuccess: (public_token, metadata) => {
                 console.log(public_token, 'publoc');
                 console.log(metadata, 'meta data success');
+                redirectHome(returnUrlResponse)
                 // Show a success page to your user confirming that the
                 // payment will be processed.
                 //
