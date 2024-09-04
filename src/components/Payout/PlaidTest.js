@@ -32,7 +32,7 @@ const PlaidTest = () => {
                 emailAddress: 'faluatemitopeo@gmail.com',
             },
             metaData: {
-                'return-url': 'https://access.leatherback.co',
+                'return-url': 'https://fusion-app.surge.sh/transaction-confirmation',
             },
         };
 
