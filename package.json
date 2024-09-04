@@ -20,7 +20,9 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "lint": "npx prettier --write ."
+        "lint": "npx prettier --write .",
+        "url": "echo fusion-app.surge.sh > CNAME",
+        "surge": "surge ./build"
     },
     "eslintConfig": {
         "extends": [
