@@ -78,9 +78,8 @@ const PlaidTest = () => {
         window.location.href = url.toString()
     };
     const openLink = () => {
-        console.log(plaidResponse, 'plaidResponse');
         const returnUrlResponse = getClientUrl(plaidResponse.metaData?.AuthUrl);
-        console.log(returnUrlResponse, 'ttttt');
+
         const linkHandler = window.Plaid.create({
             // Create a new link_token to initialize Link
             token: plaidResponse?.metaData?.token,
